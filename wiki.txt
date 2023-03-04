@@ -35,4 +35,4 @@ States of Germany,New states of Germany,Christianity in East Germany,Reformation
 
 Game 7
 
-Moon,Apollo Lunar Surface Experiments Package,Yale University,connecticut,Northeastern United States,North America,Contiguous United States,United States Board on Geographic Names,Federal government of the United States,President of the United States,Vice President of,the United States,United States National Security Council,Korean War
+Moon,Apollo Lunar Surface Experiments Package,Yale University,connecticut,Northeastern United States,North America,Contiguous United States,United States Board on Geographic Names,Federal government of the United States,President of the United States,Vice President of the United States,United States National Security Council,Korean War

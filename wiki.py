@@ -2,7 +2,6 @@
 import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
-import numpy as np
 from matplotlib.pyplot import text, figure
 import sys
 
@@ -14,89 +13,6 @@ python3 wiki.py '<PASTED "Share Path">'
 -h [display usage]
 
 """
-
-# Static all articles for testing
-articles = [
-"2018-19 UEFA Europa League",
-"2018-19 UEFA Europa League qualifying phase and play-off round (Main Path)",
-"Antonio Vivaldi",
-"Apollo Lunar Surface Experiments Package",
-"Association football",
-"Body of water",
-"Bojan Jokid",
-"Caspian Sea",
-"Catholic Church",
-"Catholic school",
-"Central Asia",
-"Chess",
-"Christianity in East Germany",
-"connecticut",
-"Contiguous United States",
-"Customary law",
-"Democratic Party (United States)",
-"Federal government of the United States",
-"Federal government of the United States",
-"Federation",
-"François-André Danican Philidor",
-"International Union of Pure and Applied Chemistry",
-"Jean Danican Philidor",
-"John F. Kennedy",
-"Korean War",
-"List of American universities with Olympic medalist students and alumni",
-"Monastery",
-"Moon",
-"Mother Teresa",
-"New Guinea",
-"New states of Germany",
-"Nicolas Chédeville",
-"North America",
-"Northeastern United States",
-"Norway",
-"Nun",
-"Ocean",
-"Olympic medal",
-"Pacific Ocean",
-"Papua New Guinea",
-"President of the United States",
-"Reformation",
-"Catholic Church",
-"Sisters of the Infant lesus",
-"Slovenia",
-"Sport in Slovenia",
-"St Mark's Basilica",
-"States of Germany",
-"Territory of New Guinea",
-"Territory of Papua and New Guinea",
-"UEFA",
-"United States",
-"United States Board on Geographic Names",
-"United States Congress",
-"United States National Security Council",
-"University of Michigan",
-"Vatican City",
-"Venice",
-"Vice President of the United States",
-"Washington, D.C.",
-"Yale University"
-]
-
-# Static game1 for testing
-game1 = ["United States Congress",
-"Federal government of the United States",
-"Federation",
-"Customary law",
-"Central Asia",
-"Caspian Sea",
-"Body of water",
-"Ocean",
-"Pacific Ocean",
-"Papua New Guinea",
-"Territory of Papua and New Guinea",
-"Territory of New Guinea",
-"New Guinea"
-]
-
-
 # get all arguments
 games = sys.argv[1:]
 
@@ -109,12 +25,10 @@ for arg in games:
     print(my_list)
     lists.append(my_list)
 
-# Print different lists created
+# Print different games created
 for i, lst in enumerate(lists):
     print(f"List {i+1}: {lst}")
 
-# Test print to see if I can retrieve individual items
-# print(lists[1][0])
 
 node_list = {}
 
@@ -126,10 +40,11 @@ def create_graph(lists):
                 prev_el = str(list[index-1])
                 curr_el = str(elem)
                 # next_el = str(list[index+1])
-
                 node_list['from'].append(prev_el)
                 node_list['to'].append(curr_el)
+            
             elif index == len(list)-1:
+                node_list['from'].append(str(list[index-1]))
                 node_list['to'].append(elem)
 
     return node_list
