@@ -2,13 +2,14 @@
 import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.pyplot import text, figure
 import sys
 
 """
 USAGE:
 
-python3 wiki.py '<PASTED "Share Path" LIST 1>' '<PASTED "Share Path" LIST 2> ...'
+python3 wiki.py '<PASTED "Share Path">'
 
 -h [display usage]
 
@@ -113,13 +114,30 @@ for i, lst in enumerate(lists):
     print(f"List {i+1}: {lst}")
 
 # Test print to see if I can retrieve individual items
-print(lists[1][0])
+# print(lists[1][0])
 
-# Create the networkx dictionary
-all_df = {'from':[], 'to':[]}
+node_list = {}
+
+def create_graph(lists):
+    node_list = {'from':[], 'to':[]}
+    for list in lists:
+        for index, elem in enumerate(list):
+            if (index+1 < len(list) and index - 1 >= 0):
+                prev_el = str(list[index-1])
+                curr_el = str(elem)
+                # next_el = str(list[index+1])
+
+                node_list['from'].append(prev_el)
+                node_list['to'].append(curr_el)
+            elif index == len(list)-1:
+                node_list['to'].append(elem)
+
+    return node_list
 
 # Iterate through the static list, figure out the previous current and next element, and append them to the respective keys
 # UPDATE TO LOOP THROUGH 'lists' variable also may need to change how 'all_df' is created since we would have multiple starting and ending points
+
+"""
 for index, elem in enumerate(game1):
     if (index+1 < len(game1) and index - 1 >= 0):
         prev_el = str(game1[index-1])
@@ -127,9 +145,13 @@ for index, elem in enumerate(game1):
         next_el = str(game1[index+1])
         all_df['from'].append(curr_el)
         all_df['to'].append(next_el)
+"""
 
 # This could probably use a different graph creation since we aren't using a pandas dataframe (which we might consider)
-G=nx.from_pandas_edgelist(all_df, 'from', 'to')
+
+G=nx.from_pandas_edgelist(create_graph(lists), 'from', 'to')
+
+print(G)
 
 # this sucks remove it and make colors based on d.values() which are the nodes
 '''
@@ -158,11 +180,11 @@ pos = nx.spring_layout(G)
 # nx.draw(G, with_labels=True, node_color=colors, pos=nx.fruchterman_reingold_layout(G))
 
 # Draws the graph
-nx.draw(G, pos=pos,node_color=[value for value in d.values()], with_labels=False, node_size=[len(key)*5000 for key in d], node_shape='o', font_color='white')
+nx.draw(G, pos=pos,node_color=[value for value in d.values()], with_labels=False, node_size=[len(key)*5000 for key in d], node_shape='o', font_color='white', cmap=plt.cm.Reds)
 
 # Changes text size of all nodes
 for node, (x, y) in pos.items():
-    text(x, y, node, fontsize=50, ha='center', va='center')
+    text(x, y, node, fontsize=50, ha='center', va='center', color='grey')
 
 # Show the graph
 plt.show()
